@@ -1,0 +1,40 @@
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.exe.config
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.exe
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.pdb
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.AssemblyReference.cache
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormGirisYap.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormKayitOl.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.Properties.Resources.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.GenerateResource.cache
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.CoreCompileInputs.cache
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.exe
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.pdb
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAdminAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUyeAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormEmanetIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormKitapIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormProfilIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUyeIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUzerimdekiKitaplar.resources
+C:\Users\Elftn\OneDrive\Masaüstü\Kütüphane Otomasyonu Projesi\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAdminIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.exe.config
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.exe
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\bin\Debug\KutuphaneOtomasyonu.pdb
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.AssemblyReference.cache
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAdminAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAdminIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormEmanetIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormGirisYap.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormKayitOl.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormKitapIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormProfilIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUyeAnasayfa.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUyeIslemleri.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.FormUzerimdekiKitaplar.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.Properties.Resources.resources
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.GenerateResource.cache
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.csproj.CoreCompileInputs.cache
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.exe
+C:\Users\Elftn\OneDrive\Masaüstü\262284043- Elif Tuana Aykırı\KutuphaneOtomasyonu\obj\Debug\KutuphaneOtomasyonu.pdb
