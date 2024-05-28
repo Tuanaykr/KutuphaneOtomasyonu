@@ -23,8 +23,8 @@ Bu proje, C# programlama dili ve MSSQL veri tabanı kullanılarak geliştirilen 
 
 3. Veri Tabanı Bağlantısını Ayarlayın:
 
-* Proje dosyalarında App.config dosyasını bulun.
-* <connectionStrings> bölümünde veri tabanı bağlantı bilgilerinizi girin.
+* Proje dosyalarında ClassSql.cs dosyasını bulun.
+* ClassSql sınıfındaki GetInstance metodunda bulunan bağlantı dizesini kendi veri tabanı bilgilerinizle güncelleyin.
   
 4. Projeyi Çalıştırın:
 
@@ -42,8 +42,8 @@ E-mail: deryasusuz@gmail.com
 E-mail: toprakaykiri@gmail.com  
 Şifre: 1234
 ### Kullanıcı İşlemleri
-* Kayıt Olma: Uygulama giriş ekranında "Kayıt Ol" butonuna tıklayarak yeni bir kullanıcı hesabı oluşturun.
-* Giriş Yapma: Kullanıcı adı ve şifre ile giriş yapın.
+* Kayıt Olma: Uygulama giriş ekranında "Kayıt Ol" butonuna tıklayarak yeni bir kullanıcı hesabı oluşturabilirsiniz.
+* Giriş Yapma: Kullanıcı adı ve şifre ile giriş yapabilirsiniz.
 * Profil Güncelleme: Giriş yaptıktan sonra profil sekmesinde bilgilerinizi güncelleyebilirsiniz.
 * Emanet Kitapları Görüntüleme: "Emanetlerim" sekmesinde üzerinizde bulunan emanet kitapları görüntüleyebilirsiniz.
 ### Admin İşlemleri
