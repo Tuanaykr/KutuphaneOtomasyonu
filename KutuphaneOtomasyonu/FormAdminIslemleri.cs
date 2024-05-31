@@ -44,7 +44,6 @@ namespace KutuphaneOtomasyonu
 
         private void kaydetBtn_Click(object sender, EventArgs e)
         {
-
             string ad = adTxt.Text.Trim();
             string soyad = soyadTxt.Text.Trim();
             string email = mailTxt.Text.Trim();

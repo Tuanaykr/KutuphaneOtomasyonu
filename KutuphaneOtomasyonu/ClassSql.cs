@@ -29,36 +29,6 @@ namespace KutuphaneOtomasyonu
         }
 
 
-        public bool TelefonVarMi(string telefon)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT COUNT(*) FROM uye WHERE telefon = @Telefon";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Telefon", telefon);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
-
-        public bool EmailVarMi(string email)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT COUNT(*) FROM uye WHERE eMail = @Email";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Email", email);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
-
         public bool KayitOl(string tableName, string ad, string soyad, string email, string sifre, string telefon, string adres)
         {
             if (TelefonVarMi(telefon))
@@ -91,7 +61,40 @@ namespace KutuphaneOtomasyonu
                 }
             }
         }
-        
+
+
+        public bool TelefonVarMi(string telefon)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(*) FROM uye WHERE telefon = @Telefon";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Telefon", telefon);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+
+
+        public bool EmailVarMi(string email)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(*) FROM uye WHERE eMail = @Email";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", email);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
+        }
+
+
         public string GirisKontrol(string email, string sifre)
         {
             string rol = string.Empty;
@@ -121,92 +124,70 @@ namespace KutuphaneOtomasyonu
         }
 
 
-
-
-        public DataTable TumAdminleriGetir()
+        public int GetAdminIDByEmail(string email)
         {
-            DataTable dataTable = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM admin";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
-            }
-
-            return dataTable;
-        }
-
-        public DataTable FiltreleAdmin(string anahtarKelime)
-        {
-            DataTable dataTable = new DataTable();
-
+            int adminID = 0;
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM admin WHERE Ad LIKE @AnahtarKelime OR Soyad LIKE @AnahtarKelime";
+                string query = "SELECT adminID FROM admin WHERE Email = @Email";
+
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
+                    command.Parameters.AddWithValue("@Email", email);
 
-                    try
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
+                        if (reader.Read())
+                        {
+                            adminID = reader.GetInt32(0);
+                        }
                     }
                 }
             }
-            return dataTable;
+            return adminID;
         }
 
 
-        public DataTable TumUyeleriGetir()
+        public int GetUyeIDByEmail(string email)
         {
-            DataTable dataTable = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM uye";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
-            }
-
-            return dataTable;
-        }
-
-        public DataTable FiltreleUye(string anahtarKelime)
-        {
-            DataTable dataTable = new DataTable(); // Filtrelenmiş verileri saklamak için bir DataTable oluştur
-
+            int uyeID = 0;
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM uye WHERE Ad LIKE @AnahtarKelime OR Soyad LIKE @AnahtarKelime";
+                string query = "SELECT uyeID FROM uye WHERE Email = @Email";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    
-                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
+                    command.Parameters.AddWithValue("@Email", email);
 
-                    try
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
+                        if (reader.Read())
+                        {
+                            uyeID = reader.GetInt32(0);
+                        }
                     }
                 }
             }
+            return uyeID;
+        }
 
-            return dataTable;
+
+        public bool UyeIadeEdilmemisKitabiVarMi(int uyeID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(*) FROM islem WHERE uyeID = @uyeID AND emanetDurumu = 'EMANETTE' AND iadeTarihi < GETDATE()";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@uyeID", uyeID);
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+            }
         }
 
 
@@ -229,13 +210,14 @@ namespace KutuphaneOtomasyonu
             return dataTable;
         }
 
-        public DataTable TumRaftakiKitaplariGetir()
+
+        public DataTable TumKategorileriGetir()
         {
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM kitap WHERE kitapDurumu = 1"; // kitapDurumu 1 olan kitaplar rafta demek
+                string query = "SELECT * FROM kategori";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 adapter.Fill(dataTable);
@@ -247,7 +229,7 @@ namespace KutuphaneOtomasyonu
 
         public DataTable FiltreleKitap(string anahtarKelime)
         {
-            DataTable dataTable = new DataTable(); 
+            DataTable dataTable = new DataTable();
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -272,51 +254,6 @@ namespace KutuphaneOtomasyonu
 
             return dataTable;
         }
-
-
-        public DataTable TumIslemleriGetir()
-        {
-            DataTable dataTable = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM islem";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
-            }
-
-            return dataTable;
-        }
-
-
-        public DataTable FiltreleIslem(string anahtarKelime)
-        {
-            DataTable dataTable = new DataTable();
-
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT * FROM islem WHERE emanetDurumu LIKE @AnahtarKelime OR islemID LIKE @AnahtarKelime";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
-
-                    try
-                    {
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        adapter.Fill(dataTable);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
-                    }
-                }
-            }
-
-            return dataTable;
-        }
-
 
 
         public bool KitapEkle(string isbn, string kitapAdi, string yazar, string baskiYili, string yayinEvi, string sayfaSayisi, string aciklama, int kategoriID)
@@ -379,21 +316,7 @@ namespace KutuphaneOtomasyonu
                 }
             }
         }
-        
-        public DataTable TumKategorileriGetir()
-        {
-            DataTable dataTable = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM kategori";
-                SqlCommand command = new SqlCommand(query, connection);
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
-            }
-
-            return dataTable;
-        }
 
         public bool KitapGuncelle(int kitapID, string isbn, string kitapAdi, string yazar, string baskiYili, string yayinEvi, string sayfaSayisi, string aciklama, int kategoriID)
         {
@@ -441,165 +364,308 @@ namespace KutuphaneOtomasyonu
             }
         }
 
-        public bool IslemEkle(int uyeID, int kitapID, DateTime islemTarihi, DateTime iadeTarihi, int adminID)
+
+        public DataTable TumUyeleriGetir()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM uye";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+        }
+
+
+        public DataTable FiltreleUye(string anahtarKelime)
+        {
+            DataTable dataTable = new DataTable(); // Filtrelenmiş verileri saklamak için bir DataTable oluştur
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM uye WHERE Ad LIKE @AnahtarKelime OR Soyad LIKE @AnahtarKelime";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
+
+                    try
+                    {
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        adapter.Fill(dataTable);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+
+
+        public bool UyeEkle(string ad, string soyad, string email, string telefon, string adres)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO islem (uyeID, kitapID, islemTarihi, iadeTarihi, adminID) VALUES (@UyeID, @KitapID, @IslemTarihi, @IadeTarihi, @AdminID)";
+                string checkQuery = "SELECT COUNT(*) FROM uye WHERE email = @Email";
+
+                using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
+                {
+                    checkCommand.Parameters.AddWithValue("@Email", email);
+                    int count = (int)checkCommand.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        return false;
+                    }
+                }
+
+                string query = "INSERT INTO uye (ad, soyad, email, telefon, adres) VALUES (@Ad, @Soyad, @Email, @Telefon, @Adres)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Ad", ad);
+                    command.Parameters.AddWithValue("@Soyad", soyad);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Telefon", telefon);
+                    command.Parameters.AddWithValue("@Adres", adres);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Üye eklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        public bool UyeGuncelle(int uyeID, string ad, string soyad, string email, string telefon, string adres)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE uye SET ad = @Ad, soyad = @Soyad, email = @Email, telefon = @Telefon, adres = @Adres WHERE uyeID = @UyeID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UyeID", uyeID);
-                    command.Parameters.AddWithValue("@KitapID", kitapID);
-                    command.Parameters.AddWithValue("@IslemTarihi", islemTarihi);
-                    command.Parameters.AddWithValue("@IadeTarihi", iadeTarihi);
-                    command.Parameters.AddWithValue("@AdminID", adminID);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"İşlem eklenirken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        public bool IslemSil(int islemID)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "DELETE FROM islem WHERE islemID = @IslemID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@IslemID", islemID);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"İşlem silinirken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        public int GetAdminIDByEmail(string email)
-        {
-            int adminID = 0;
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT adminID FROM admin WHERE Email = @Email";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
+                    command.Parameters.AddWithValue("@Ad", ad);
+                    command.Parameters.AddWithValue("@Soyad", soyad);
                     command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Telefon", telefon);
+                    command.Parameters.AddWithValue("@Adres", adres);
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    try
                     {
-                        if (reader.Read())
-                        {
-                            adminID = reader.GetInt32(0);
-                        }
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Üye güncellenirken bir hata oluştu: {ex.Message}");
+                        return false;
                     }
                 }
             }
-            return adminID;
         }
 
 
-        public DataTable GetUyeDataByID(int uyeID)
+        public bool UyeSil(int uyeID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM uye WHERE uyeID = @UyeID";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@UyeID", uyeID);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Üye silinirken bir hata oluştu: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        public DataTable FiltreleIslem(string anahtarKelime)
         {
             DataTable dataTable = new DataTable();
+
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM uye WHERE uyeID = @UyeID";
-
+                string query = "SELECT * FROM islem WHERE emanetDurumu LIKE @AnahtarKelime OR islemID LIKE @AnahtarKelime";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@UyeID", uyeID);
+                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    try
                     {
-                        dataTable.Load(reader);
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        adapter.Fill(dataTable);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+
+
+        public DataTable TumIslemleriGetir()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM islem";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+        }
+
+
+        public bool TeslimVer(int uyeID, int kitapID, DateTime islemTarihi, DateTime iadeTarihi, int adminID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("TeslimVer", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@uyeID", uyeID);
+                    command.Parameters.AddWithValue("@kitapID", kitapID);
+                    command.Parameters.AddWithValue("@islemTarihi", islemTarihi);
+                    command.Parameters.AddWithValue("@iadeTarihi", iadeTarihi);
+                    command.Parameters.AddWithValue("@adminID", adminID);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Teslim verilirken bir hata oluştu: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        public bool TeslimAl(int islemID, int kitapID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("TeslimAl", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@islemID", islemID);
+                    command.Parameters.AddWithValue("@kitapID", kitapID);
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Teslim alınırken bir hata oluştu: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+        public DataTable TumRaftakiKitaplariGetir()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM kitap WHERE kitapDurumu = 1"; // kitapDurumu 1 olan kitaplar rafta demek
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+        }
+
+
+        public DataTable TumAdminleriGetir()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM admin";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataTable);
+            }
+
+            return dataTable;
+        }
+
+
+        public DataTable FiltreleAdmin(string anahtarKelime)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM admin WHERE Ad LIKE @AnahtarKelime OR Soyad LIKE @AnahtarKelime";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@AnahtarKelime", "%" + anahtarKelime + "%");
+
+                    try
+                    {
+                        SqlDataAdapter adapter = new SqlDataAdapter(command);
+                        adapter.Fill(dataTable);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Filtreleme sırasında bir hata oluştu: {ex.Message}");
                     }
                 }
             }
             return dataTable;
-        }
-
-        
-        public int GetUyeIDByEmail(string email)
-        {
-            int uyeID = 0;
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT uyeID FROM uye WHERE Email = @Email";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Email", email);
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            uyeID = reader.GetInt32(0);
-                        }
-                    }
-                }
-            }
-            return uyeID;
-        }
-
-
-        public string GetKitapEmanetDurumu(int kitapID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT emanetDurumu FROM kitap WHERE kitapID = @KitapID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@KitapID", kitapID);
-
-                    try
-                    {
-                        object result = command.ExecuteScalar();
-                        if (result != null)
-                        {
-                            return result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Belirtilen kitap bulunamadı.");
-                            return null;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Kitap emanet durumu alınırken bir hata oluştu: {ex.Message}");
-                        return null;
-                    }
-                }
-            }
         }
 
 
@@ -703,126 +769,6 @@ namespace KutuphaneOtomasyonu
         }
 
 
-        public bool UyeEkle(string ad, string soyad, string email, string telefon, string adres)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string checkQuery = "SELECT COUNT(*) FROM uye WHERE email = @Email";
-
-                using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
-                {
-                    checkCommand.Parameters.AddWithValue("@Email", email);
-                    int count = (int)checkCommand.ExecuteScalar();
-
-                    if (count > 0)
-                    {
-                        return false;
-                    }
-                }
-
-                string query = "INSERT INTO uye (ad, soyad, email, telefon, adres) VALUES (@Ad, @Soyad, @Email, @Telefon, @Adres)";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Ad", ad);
-                    command.Parameters.AddWithValue("@Soyad", soyad);
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Telefon", telefon);
-                    command.Parameters.AddWithValue("@Adres", adres);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Üye eklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }
-        }
-
-       
-        public bool UyeGuncelle(int uyeID, string ad, string soyad, string email, string telefon, string adres)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "UPDATE uye SET ad = @Ad, soyad = @Soyad, email = @Email, telefon = @Telefon, adres = @Adres WHERE uyeID = @UyeID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UyeID", uyeID);
-                    command.Parameters.AddWithValue("@Ad", ad);
-                    command.Parameters.AddWithValue("@Soyad", soyad);
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Telefon", telefon);
-                    command.Parameters.AddWithValue("@Adres", adres);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Üye güncellenirken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        public bool UyeSil(int uyeID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "DELETE FROM uye WHERE uyeID = @UyeID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UyeID", uyeID);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Üye silinirken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        public DataTable UyeBilgileriniGetir(int uyeID)
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT ad, soyad, eMail, sifre, telefon, adres FROM uye WHERE uyeID = @UyeID";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UyeID", uyeID);
-                    using (SqlDataAdapter da = new SqlDataAdapter(command))
-                    {
-                        da.Fill(dt);
-                    }
-                }
-            }
-            return dt;
-        }
-
-
         public DataTable UzerimdekiKitaplariGetir(int uyeID)
         {
             DataTable dt = new DataTable();
@@ -845,61 +791,6 @@ namespace KutuphaneOtomasyonu
                 }
             }
             return dt;
-        }
-
-
-        public bool TeslimVer(int uyeID, int kitapID, DateTime islemTarihi, DateTime iadeTarihi, int adminID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("TeslimVer", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@uyeID", uyeID);
-                    command.Parameters.AddWithValue("@kitapID", kitapID);
-                    command.Parameters.AddWithValue("@islemTarihi", islemTarihi);
-                    command.Parameters.AddWithValue("@iadeTarihi", iadeTarihi);
-                    command.Parameters.AddWithValue("@adminID", adminID);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Teslim verilirken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
-        }
-
-
-        public bool TeslimAl(int islemID, int kitapID)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("TeslimAl", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@islemID", islemID);
-                    command.Parameters.AddWithValue("@kitapID", kitapID);
-
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Teslim alınırken bir hata oluştu: {ex.Message}");
-                        return false;
-                    }
-                }
-            }
         }
 
 
@@ -930,29 +821,24 @@ namespace KutuphaneOtomasyonu
         }
 
 
-        public DataTable GetirGecmisKitaplar(int uyeID)
+        public DataTable GetUyeDataByID(int uyeID)
         {
             DataTable dataTable = new DataTable();
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT kitap.ad AS 'Kitap Adı', kitap.yazar AS 'Yazar', islem.islemTarihi AS 'Alış Tarihi', islem.iadeTarihi AS 'İade Tarihi' " +
-                               "FROM islem " +
-                               "INNER JOIN kitap ON islem.kitapID = kitap.kitapID " +
-                               "WHERE islem.uyeID = @UyeID";
+                string query = "SELECT * FROM uye WHERE uyeID = @UyeID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@UyeID", uyeID);
 
-                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(command))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        dataAdapter.Fill(dataTable);
+                        dataTable.Load(reader);
                     }
                 }
             }
-
             return dataTable;
         }
 
@@ -987,22 +873,6 @@ namespace KutuphaneOtomasyonu
                 return false;
             }
         }
-
-
-        public bool UyeIadeEdilmemisKitabiVarMi(int uyeID)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = "SELECT COUNT(*) FROM islem WHERE uyeID = @uyeID AND emanetDurumu = 'EMANETTE' AND iadeTarihi < GETDATE()";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@uyeID", uyeID);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
     }
 }
+

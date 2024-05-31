@@ -41,7 +41,7 @@
             this.profilIslemBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profilIslemBtn.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.profilIslemBtn.ForeColor = System.Drawing.Color.White;
-            this.profilIslemBtn.Location = new System.Drawing.Point(99, 197);
+            this.profilIslemBtn.Location = new System.Drawing.Point(246, 82);
             this.profilIslemBtn.Margin = new System.Windows.Forms.Padding(4);
             this.profilIslemBtn.Name = "profilIslemBtn";
             this.profilIslemBtn.Size = new System.Drawing.Size(165, 78);
@@ -59,7 +59,7 @@
             this.uzerimdekilerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.uzerimdekilerBtn.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.uzerimdekilerBtn.ForeColor = System.Drawing.Color.White;
-            this.uzerimdekilerBtn.Location = new System.Drawing.Point(99, 71);
+            this.uzerimdekilerBtn.Location = new System.Drawing.Point(58, 82);
             this.uzerimdekilerBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uzerimdekilerBtn.Name = "uzerimdekilerBtn";
             this.uzerimdekilerBtn.Size = new System.Drawing.Size(165, 78);
@@ -73,7 +73,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Thistle;
-            this.ClientSize = new System.Drawing.Size(352, 348);
+            this.ClientSize = new System.Drawing.Size(481, 240);
             this.Controls.Add(this.profilIslemBtn);
             this.Controls.Add(this.uzerimdekilerBtn);
             this.Name = "FormUyeAnasayfa";

@@ -12,7 +12,6 @@ namespace KutuphaneOtomasyonu
 {
     public partial class FormKayitOl : Form
     {
-
         private ClassSql classSql;
         public FormKayitOl()
         {

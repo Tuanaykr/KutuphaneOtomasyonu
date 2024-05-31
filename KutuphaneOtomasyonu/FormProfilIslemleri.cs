@@ -54,7 +54,6 @@ namespace KutuphaneOtomasyonu
             }
         }
 
-
         private void LoadProfileData(int uyeID)
         {
             DataTable userData = classSql.GetUyeDataByID(uyeID);

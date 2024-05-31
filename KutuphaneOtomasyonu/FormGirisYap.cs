@@ -86,9 +86,6 @@ namespace KutuphaneOtomasyonu
                 FormUyeAnasayfa uye = new FormUyeAnasayfa();
                 uye.ShowDialog();
             }*/
-
-
-
         }
     }
 }

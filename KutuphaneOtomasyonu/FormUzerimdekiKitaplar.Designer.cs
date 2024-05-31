@@ -42,12 +42,12 @@
             this.kitapUzatBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.kitapUzatBtn.Font = new System.Drawing.Font("Microsoft YaHei", 12F);
             this.kitapUzatBtn.ForeColor = System.Drawing.Color.White;
-            this.kitapUzatBtn.Location = new System.Drawing.Point(527, 26);
+            this.kitapUzatBtn.Location = new System.Drawing.Point(450, 26);
             this.kitapUzatBtn.Margin = new System.Windows.Forms.Padding(4);
             this.kitapUzatBtn.Name = "kitapUzatBtn";
-            this.kitapUzatBtn.Size = new System.Drawing.Size(145, 33);
+            this.kitapUzatBtn.Size = new System.Drawing.Size(222, 48);
             this.kitapUzatBtn.TabIndex = 60;
-            this.kitapUzatBtn.Text = "Kitap Uzat";
+            this.kitapUzatBtn.Text = "İade Tarihini Uzat";
             this.kitapUzatBtn.UseVisualStyleBackColor = false;
             this.kitapUzatBtn.Click += new System.EventHandler(this.kitapUzatBtn_Click);
             // 

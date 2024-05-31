@@ -54,17 +54,12 @@ namespace KutuphaneOtomasyonu
             dataGridView2.Columns["yayinEvi"].HeaderText = "Yayın Evi";
             dataGridView2.Columns["sayfaSayisi"].HeaderText = "Sayfa Sayısı";
             dataGridView2.Columns["aciklama"].HeaderText = "Açıklama";
-
-
         }
         private void uyeAraBtn_Click(object sender, EventArgs e)
         {
             string anahtarKelime = uyeAraTxt.Text.Trim();
-
             ClassSql classSql = ClassSql.GetInstance();
-
             DataTable sonuclar = classSql.FiltreleUye(anahtarKelime);
-
             dataGridView1.DataSource = sonuclar;
         }
 
