@@ -14,10 +14,12 @@ namespace KutuphaneOtomasyonu
         private string _connectionString;
         private static ClassSql _instance;
 
+
         public ClassSql(string connectionString)
         {
             _connectionString = connectionString;
         }
+
 
         public static ClassSql GetInstance()
         {
