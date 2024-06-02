@@ -61,6 +61,12 @@ namespace KutuphaneOtomasyonu
             int kategoriID = Convert.ToInt32(kategoriComboBox.SelectedValue);
 
             ClassSql classSql = ClassSql.GetInstance();
+
+            if (!classSql.BosKontrolu(ISBNTxt, adTxt, yazarTxt, baskiYiliTxt, yayinEviTxt, sayfaSayisiTxt, aciklamaTxt))
+            {
+                return;
+            }
+
             bool kitapEklendi = classSql.KitapEkle(isbn, kitapAdi, yazar, baskiYili, yayinEvi, sayfaSayisi, aciklama, kategoriID);
 
             if (kitapEklendi)

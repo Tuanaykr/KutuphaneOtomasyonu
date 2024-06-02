@@ -29,6 +29,12 @@ namespace KutuphaneOtomasyonu
             string adres = adresTxt.Text;
 
             ClassSql sqlInstance = ClassSql.GetInstance();
+
+            if (!sqlInstance.BosKontrolu(adTxt, soyadTxt, emailTxt, sifreTxt, telefonTxt, adresTxt))
+            {
+                return;
+            }
+
             bool kayitBasarili = sqlInstance.KayitOl("uye", ad, soyad, email, sifre, telefon, adres);
 
             if (kayitBasarili)

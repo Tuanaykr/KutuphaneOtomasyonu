@@ -65,6 +65,20 @@ namespace KutuphaneOtomasyonu
         }
 
 
+        public bool BosKontrolu(params TextBox[] textBoxes)
+        {
+            foreach (var textBox in textBoxes)
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    MessageBox.Show($"{textBox.Name} boş bırakılamaz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
         public bool TelefonVarMi(string telefon)
         {
             using (var connection = new SqlConnection(_connectionString))

@@ -51,6 +51,12 @@ namespace KutuphaneOtomasyonu
             string adres = adresTxt.Text.Trim();
 
             ClassSql classSql = ClassSql.GetInstance();
+
+            if (!classSql.BosKontrolu(adTxt, soyadTxt, mailTxt, sifreTxt, telefonTxt, adresTxt))
+            {
+                return;
+            }
+
             bool basarili = classSql.AdminEkle(ad, soyad, email, telefon, adres);
 
             if (basarili)
