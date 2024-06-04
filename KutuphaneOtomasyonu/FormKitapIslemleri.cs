@@ -107,30 +107,38 @@ namespace KutuphaneOtomasyonu
 
         private void guncelleBtn_Click(object sender, EventArgs e)
         {
-            string isbn = ISBNTxt.Text.Trim();
-            string kitapAdi = adTxt.Text.Trim();
-            string yazar = yazarTxt.Text.Trim();
-            string baskiYili = baskiYiliTxt.Text.Trim();
-            string yayinEvi = yayinEviTxt.Text.Trim();
-            string sayfaSayisi = sayfaSayisiTxt.Text.Trim();
-            string aciklama = aciklamaTxt.Text.Trim();
-            int kategoriID = Convert.ToInt32(kategoriComboBox.SelectedValue);
-
-            DataGridViewRow selectedRow = dataGridView1.CurrentRow;
-            int kitapID = Convert.ToInt32(selectedRow.Cells["kitapID"].Value);
-
-            ClassSql classSql = ClassSql.GetInstance();
-            bool kitapGuncellendi = classSql.KitapGuncelle(kitapID, isbn, kitapAdi, yazar, baskiYili, yayinEvi, sayfaSayisi, aciklama, kategoriID);
-
-            if (kitapGuncellendi)
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Kitap başarıyla güncellendi.");
-                DataTable kitaplar = classSql.TumKitaplariGetir();
-                dataGridView1.DataSource = kitaplar;
+                DataGridViewRow row = dataGridView1.SelectedRows[0];
+                int kitapID = Convert.ToInt32(row.Cells["kitapID"].Value);
+
+                string isbn = ISBNTxt.Text.Trim();
+                string kitapAdi = adTxt.Text.Trim();
+                string yazar = yazarTxt.Text.Trim();
+                string baskiYili = baskiYiliTxt.Text.Trim();
+                string yayinEvi = yayinEviTxt.Text.Trim();
+                string sayfaSayisi = sayfaSayisiTxt.Text.Trim();
+                string aciklama = aciklamaTxt.Text.Trim();
+                int kategoriID = Convert.ToInt32(kategoriComboBox.SelectedValue);
+
+                ClassSql classSql = ClassSql.GetInstance();
+
+                bool basarili = classSql.KitapGuncelle(kitapID, isbn, kitapAdi, yazar, baskiYili, yayinEvi, sayfaSayisi, aciklama, kategoriID);
+
+                if (basarili)
+                {
+                    MessageBox.Show("Kitap başarıyla güncellendi.");
+                    DataTable kitaplar = classSql.TumKitaplariGetir();
+                    dataGridView1.DataSource = kitaplar;
+                }
+                else
+                {
+                    MessageBox.Show("Kitap güncellenirken bir hata oluştu.");
+                }
             }
             else
             {
-                MessageBox.Show("Kitap güncellenirken bir hata oluştu.");
+                MessageBox.Show("Lütfen güncellemek istediğiniz kitabı seçin.");
             }
         }
     }
